@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 
 
 
-class CompraTeste {
+class CarrinhoDeCompraTeste {
         private lateinit var compra: CarrinhoDeCompras
         private lateinit var produto1: Produto
         private lateinit var produto2: Produto
