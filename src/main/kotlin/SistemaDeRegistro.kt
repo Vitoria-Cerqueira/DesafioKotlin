@@ -1,7 +1,7 @@
 import kotlin.system.exitProcess
 
 class SistemaDeRegistro {
-    val carrinho = Compra()
+    val carrinho = CarrinhoDeCompras()
     fun menuPrincipal() {
         var opcao = 0
         do {
@@ -10,18 +10,17 @@ class SistemaDeRegistro {
                 println("Escolha uma opção\n1- Lanches\n2- Bebidas\n3- Sobremesa")
                 opcao = readln().toInt()
                 when (opcao) {
-                    1->{menuLanche()}
-                    2->{menuBebida()}
-                    3->{menuSobremesa()}
+                    1 -> {menuLanche()}
+                    2 -> {menuBebida()}
+                    3 -> {menuSobremesa()}
                     else -> println("Opção invalida, tente nvamente")
                 }
             } catch (exception: NumberFormatException) {
-                exception.printStackTrace()
                 println("Formato inválido, para escolher o item, você deve informar o número dele")
             }
         } while (opcao != 1 && opcao != 2 && opcao != 3)
     }
-    private fun menuLanche() {
+    fun menuLanche() {
         var opcao = 0
         do {
             try {
@@ -33,12 +32,11 @@ class SistemaDeRegistro {
                     else -> println("Opção invalida, tente nvamente")
                 }
             } catch (e: NumberFormatException) {
-                e.printStackTrace()
                 println("Formato inválido, para escolher o item, você deve informar o número dele")
             }
         } while (opcao != 1 && opcao != 2)
     }
-    private fun menuBebida() {
+    fun menuBebida() {
         var opcao = 0
         do {
             try {
@@ -50,12 +48,11 @@ class SistemaDeRegistro {
                     else -> println("Opção invalida, tente nvamente")
                 }
             } catch (e: NumberFormatException) {
-                e.printStackTrace()
                 println("Formato inválido, para escolher o item, você deve informar o número dele")
             }
         } while (opcao != 1 && opcao != 2)
     }
-    private fun menuSobremesa() {
+    fun menuSobremesa() {
         var opcao = 0
         do {
             try {
@@ -68,21 +65,21 @@ class SistemaDeRegistro {
                     else -> println("Opção invalida, tente nvamente")
                 }
             } catch (e: NumberFormatException) {
-                e.printStackTrace()
                 println("Formato inválido, para escolher o item, você deve informar o número dele")
             }
         } while (opcao != 1 && opcao != 2 && opcao != 3)
-
-
     }
-    private fun adicionarItemCarrinho(produto: Produto) {
+    fun adicionarItemCarrinho(produto: Produto) {
         println("Digite a quantidade desejada: ")
         val quantidade = readln().toIntOrNull()
 
         if (quantidade != null && quantidade > 0) {
-            carrinho.acrescentarProduto(produto, quantidade)
+            carrinho.acrescentarItem(produto, quantidade)
             carrinho.exibirCarrinho()
+            menuComMaisOpcoes()
         }
+    }
+    fun menuComMaisOpcoes() {
         var opcao = 0
         do {
             try {
@@ -90,20 +87,19 @@ class SistemaDeRegistro {
                 opcao = readln().toInt()
                 println()
                 when (opcao) {
-                    1 -> {menuPrincipal()}
+                    1 -> { menuPrincipal()}
                     2 -> {editarItem()}
                     3 -> {removerItem()}
-                    4 -> {finalizarPedido()}
+                    4 -> {finalizarPedido() }
                     else -> println("Opção invalida, tente nvamente")
                 }
             } catch (e: NumberFormatException) {
                 e.printStackTrace()
                 println("Formato inválido, para escolher o item, você deve informar o número dele")
-
             }
         } while (opcao != 4)
     }
-    private fun editarItem() {
+    fun editarItem() {
         println("Digite o codigo do produto que você deseja editar: ")
         val codigo = readln().toIntOrNull()
         if (codigo != null) {
@@ -112,7 +108,7 @@ class SistemaDeRegistro {
             val novaQuantidade = readln().toIntOrNull()
 
             if (novaQuantidade != null && novaQuantidade > 0) {
-                carrinho.editarQuantidade(codigo, novaQuantidade)
+                carrinho.editarQuantidadeDoItem(codigo, novaQuantidade)
                 carrinho.exibirCarrinho()
             } else {
                 println("Quantidade inválida, tente novamente")
@@ -121,15 +117,15 @@ class SistemaDeRegistro {
             println("Opção inválida")
         }
     }
-    private fun removerItem() {
+    fun removerItem() {
         println("Digite o codigo do produto que deseja remover: ")
         val codigo = readln().toIntOrNull()
         if (codigo != null) {
-            carrinho.remover(codigo)
+            carrinho.removerItem(codigo)
             carrinho.exibirCarrinho()
         }
     }
-    private fun finalizarPedido() {
+    fun finalizarPedido() {
         carrinho.exibirCarrinho()
         var opcao = 0
         while (true) {
@@ -166,7 +162,6 @@ class SistemaDeRegistro {
                 ex.printStackTrace()
                 println("Formato inválido, para escolher o item, você deve informar o número dele")
             }
-
         }
     }
 }
